@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -21,6 +23,10 @@ public class Flight {
             return true;
         }
         return false;
+    }
+
+    public List<Passenger> getPassengers(){
+        return new ArrayList<>(passengersBySeatNumber);
     }
 
 
