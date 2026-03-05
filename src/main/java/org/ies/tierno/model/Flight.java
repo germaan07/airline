@@ -2,6 +2,7 @@ package org.ies.tierno.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.ies.tierno.exceptions.PassengerNotExistInTheFlight;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +28,15 @@ public class Flight {
 
     public List<Passenger> getPassengers(){
         return new ArrayList<>(passengersBySeatNumber);
+    }
+
+    public Passenger getPassenger(int numFlight, String nif) throws PassengerNotExistInTheFlight {
+        for (Passenger p : passengersBySeatNumber){
+           if (p.getNif().equals(nif)){
+               return p;
+           }
+        }
+        throw new PassengerNotExistInTheFlight(numFlight, nif) ;
     }
 
 

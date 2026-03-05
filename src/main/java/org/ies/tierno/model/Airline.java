@@ -3,7 +3,9 @@ package org.ies.tierno.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.ies.tierno.exceptions.FlightNotFoundByNumFlight;
+import org.ies.tierno.exceptions.PassengerNotExistInTheFlight;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +28,23 @@ public class Airline {
     public List<Passenger> getPassengerWithFlightNumber(int numFlight) throws FlightNotFoundByNumFlight {
         return findFlight(numFlight).getPassengers();
     }
-    //Dado un número de vuelo, devuelve los clientes que son pasajeros en el vuelo.
 
-    public Client getClientsPassengers(int numFlight) throws FlightNotFoundByNumFlight {
+    public List<Client> getClientsPassengers(int numFlight) throws FlightNotFoundByNumFlight {
         Flight f = findFlight(numFlight);
         List<Passenger> passengers = getPassengerWithFlightNumber(numFlight);
-        for ()
+        List<Client> clientsAndPassenger = new ArrayList<>();
+        for (Passenger p : passengers){
+            for (Client c : clients){
+                if (c.getNif().equals(p.getNif())){
+                    clientsAndPassenger.add(c);
+                }
+            }
+        }
+        return clientsAndPassenger;
     }
+
+    public Integer getSeat(int numFlight, String nif) throws FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
+        return findFlight(numFlight).getPassenger(numFlight, nif).getSeatNumber();
+    }
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Passenger implements Comparable<Passenger>{
-    private int nif;
+    private String nif;
     private int seatNumber;
     private List<Luggage> luggages;
 
