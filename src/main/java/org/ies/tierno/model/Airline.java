@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.ies.tierno.exceptions.FlightNotFoundByNumFlight;
 import org.ies.tierno.exceptions.InvalidLuggageException;
-import org.ies.tierno.exceptions.InvalidLuggageIdExceeption;
 import org.ies.tierno.exceptions.PassengerNotExistInTheFlight;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class Airline {
     }
 
     public List<Client> getClientsPassengers(int numFlight) throws FlightNotFoundByNumFlight {
-        Flight f = findFlight(numFlight);
         List<Passenger> passengers = getPassengerWithFlightNumber(numFlight);
         List<Client> clientsAndPassenger = new ArrayList<>();
         for (Passenger p : passengers){
@@ -45,16 +43,26 @@ public class Airline {
         return clientsAndPassenger;
     }
 
+    public List<Client> getClientsBySurname(String surname) {
+        return clients.stream()
+                .filter(client -> client.getSurname().equals(surname))
+                .toList();
+    }
+
     public Integer getSeat(int numFlight, String nif) throws FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
         return findFlight(numFlight).getPassenger(numFlight, nif).getSeatNumber();
     }
 
-    public boolean addLuggage(int numFlight, String nif, Luggage luggage) throws InvalidLuggageException, InvalidLuggageIdExceeption, FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
+    public boolean addLuggage(int numFlight, String nif, Luggage luggage) throws InvalidLuggageException, FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
         return findFlight(numFlight).getPassenger(numFlight, nif).addLuggage(luggage);
     }
 
-    //Dado un nif, devuelve los vuelos en los que ese cliente es pasajero.
-
+    public List<Flight> getClientsFlights(String nif){
+        return flightByNumberFlight.values().stream()
+                .filter(f -> f.getPassengersBySeatNumber().stream()
+                        .anyMatch(passenger -> passenger.getNif().equals(nif)))
+                .toList();
+    }
 
 
 }

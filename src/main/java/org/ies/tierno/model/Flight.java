@@ -20,10 +20,7 @@ public class Flight {
     private TreeSet<Passenger> passengersBySeatNumber;
 
     public boolean isTheFlight(int numFlighr){
-        if (numFlighr == flightNumber){
-            return true;
-        }
-        return false;
+        return numFlighr == flightNumber;
     }
 
     public List<Passenger> getPassengers(){

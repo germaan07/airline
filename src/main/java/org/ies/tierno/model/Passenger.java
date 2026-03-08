@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.ies.tierno.exceptions.InvalidLuggageException;
-import org.ies.tierno.exceptions.InvalidLuggageIdExceeption;
 
 import java.util.List;
 
@@ -32,9 +31,9 @@ public class Passenger implements Comparable<Passenger>{
         }
     }
 
-    public boolean addLuggage(Luggage luggage) throws InvalidLuggageIdExceeption, InvalidLuggageException {
-        var exist = luggages.stream().filter(l -> l.equals(luggage));
-        if (!exist.isParallel()){
+    public boolean addLuggage(Luggage luggage) throws InvalidLuggageException {
+        var exist = luggages.stream().anyMatch(l -> l.getId().equals(luggage.getId()));
+        if (!exist){
             luggages.add(luggage);
             return true;
         }
