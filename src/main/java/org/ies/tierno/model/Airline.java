@@ -3,6 +3,8 @@ package org.ies.tierno.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.ies.tierno.exceptions.FlightNotFoundByNumFlight;
+import org.ies.tierno.exceptions.InvalidLuggageException;
+import org.ies.tierno.exceptions.InvalidLuggageIdExceeption;
 import org.ies.tierno.exceptions.PassengerNotExistInTheFlight;
 
 import java.util.ArrayList;
@@ -46,5 +48,13 @@ public class Airline {
     public Integer getSeat(int numFlight, String nif) throws FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
         return findFlight(numFlight).getPassenger(numFlight, nif).getSeatNumber();
     }
+
+    public boolean addLuggage(int numFlight, String nif, Luggage luggage) throws InvalidLuggageException, InvalidLuggageIdExceeption, FlightNotFoundByNumFlight, PassengerNotExistInTheFlight {
+        return findFlight(numFlight).getPassenger(numFlight, nif).addLuggage(luggage);
+    }
+
+    //Dado un nif, devuelve los vuelos en los que ese cliente es pasajero.
+
+
 
 }

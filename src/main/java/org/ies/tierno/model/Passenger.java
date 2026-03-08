@@ -3,6 +3,8 @@ package org.ies.tierno.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.ies.tierno.exceptions.InvalidLuggageException;
+import org.ies.tierno.exceptions.InvalidLuggageIdExceeption;
 
 import java.util.List;
 
@@ -28,5 +30,14 @@ public class Passenger implements Comparable<Passenger>{
         for (Luggage l : luggages) {
             l.showInfo();
         }
+    }
+
+    public boolean addLuggage(Luggage luggage) throws InvalidLuggageIdExceeption, InvalidLuggageException {
+        var exist = luggages.stream().filter(l -> l.equals(luggage));
+        if (!exist.isParallel()){
+            luggages.add(luggage);
+            return true;
+        }
+        throw new InvalidLuggageException(luggage);
     }
 }
