@@ -6,4 +6,5 @@ public class FlightNotFoundByNumFlight extends Exception {
     public FlightNotFoundByNumFlight(int flightNumber) {
         super("No se ha encontrado el vuelo: " + flightNumber);
         this.flightNumber = flightNumber;
-    }}
+    }
+}
